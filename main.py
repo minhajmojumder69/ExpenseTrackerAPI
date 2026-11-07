@@ -16,7 +16,7 @@ tables.Base.metadata.create_all(bind=engine)
 app.include_router(auth.router)
 
 class Transaction(BaseModel):
-    id : int
+    id : int = Field(gt=0)
     title : str
     amount : float = Field(gt=0)
     type : Annotated[Literal['income', 'expense'], Field(max_length=10)]
@@ -24,7 +24,7 @@ class Transaction(BaseModel):
     date : date
 
 class Transaction_update(BaseModel):
-    id : Optional[int] = Field(default=None)
+    id : Optional[int] = Field(default=None, gt=0)
     title : Optional[str] = Field(default=None)
     amount : Optional[float] = Field(default=None, gt=0)
     type : Optional[Literal['Income', 'Expense']] = Field(default=None)
