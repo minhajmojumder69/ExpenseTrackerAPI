@@ -105,7 +105,7 @@ def update_transactions(db: database_dependency,user:user_dependency, transactio
         setattr(specific_transaction,key,value)
 
     db.commit()
-    return HTTPException(status_code=200, detail='Transacation Updated Successfully')
+    return JSONResponse(status_code=200,content={'message':'Transacation updated Successfully'})
 
 @app.delete('/transactions/{transaction_id}')
 def delete_transaction(db: database_dependency,user: user_dependency, transaction_id : int):
@@ -118,7 +118,7 @@ def delete_transaction(db: database_dependency,user: user_dependency, transactio
             raise HTTPException(status_code=404, detail='Transaction not found')
     db.query(Transactions).filter(Transactions.id == transaction_id).delete()
     db.commit()
-    return HTTPException(status_code=200, detail='Transaction deleted successfully')
+    return JSONResponse(status_code=200,content={'message':'Transaction deleted successfully'})
 
 @app.get('/user')
 def get_user(user: user_dependency,db : database_dependency):
